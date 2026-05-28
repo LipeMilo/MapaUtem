@@ -7,7 +7,7 @@ from firebase_admin import credentials, firestore
 import networkx as nx
 from rutas import nodos_campus, caminos_campus
 
-# --- FIREBASE INIT ---
+
 if not firebase_admin._apps:
     cred = credentials.Certificate(dict(st.secrets["firebase"]))
     firebase_admin.initialize_app(cred)
@@ -72,13 +72,13 @@ def calcular_ruta(origen, destino, solo_accesible):
         return {'status': 'error', 'mensaje': str(e)}
 
 
-# --- STREAMLIT UI ---
+
 st.set_page_config(page_title="Campus Accesible MVP", layout="wide")
 st.title("Campus Accesible - Mapa Interactivo")
 
 st.sidebar.header("Sistema de Navegación")
 
-# --- FETCH UBICACIONES ---
+
 try:
     datos_ubicaciones = obtener_ubicaciones()
 except Exception as e:
@@ -96,7 +96,7 @@ if datos_ubicaciones:
             nombre_a_nodo[nombre] = nodo_id
             nombres_edificios.append(nombre)
 
-# --- SELECTORES DINÁMICOS ---
+
 if nombres_edificios:
     origen_seleccionado = st.sidebar.selectbox("Punto de Origen:", nombres_edificios, index=0)
     destino_seleccionado = st.sidebar.selectbox(
@@ -134,7 +134,7 @@ else:
     if datos_ubicaciones is not None:
         st.sidebar.warning("No hay edificios disponibles para navegación.")
 
-# --- RENDERIZAR MAPA ---
+
 if datos_ubicaciones:
     lista_puntos = []
     for punto in datos_ubicaciones:
@@ -152,7 +152,7 @@ if datos_ubicaciones:
     df = df[df["lon"].apply(lambda x: isinstance(x, (int, float)))]
     df = df[(df["lat"] != 0) & (df["lon"] != 0)]
 
-    # --- CARGA DE GEOJSONS ---
+
     with open("edificios.geojson", "r", encoding="utf-8") as f:
         data_edificios = json.load(f)
 
@@ -175,7 +175,7 @@ if datos_ubicaciones:
         else:
             props['color_dinamico'] = [210, 215, 220, 180]
 
-    # --- CAPA 1: EDIFICIOS 3D ---
+    
     capa_edificios_3d = pdk.Layer(
         "GeoJsonLayer",
         data=data_edificios,
@@ -189,7 +189,7 @@ if datos_ubicaciones:
         get_line_color="[255, 255, 255]",
     )
 
-    # --- CAPA 2: RED DE CAMINOS INTERNOS ---
+    
     capa_caminos = pdk.Layer(
         "GeoJsonLayer",
         data=data_caminos,
@@ -204,7 +204,7 @@ if datos_ubicaciones:
 
     capas = [capa_caminos, capa_edificios_3d]
 
-    # --- CAPA 3: RUTA ---
+   
     if 'ruta_coords' in locals() and ruta_coords is not None:
         capa_ruta = pdk.Layer(
             "PathLayer",
@@ -218,7 +218,7 @@ if datos_ubicaciones:
         )
         capas.append(capa_ruta)
 
-    # --- CAPA 4: ETIQUETAS ---
+   
     if not df.empty:
         capa_nombres = pdk.Layer(
             "TextLayer",
@@ -232,7 +232,7 @@ if datos_ubicaciones:
         )
         capas.append(capa_nombres)
 
-    # --- VISTA DE CÁMARA ---
+    
     vista_utem = pdk.ViewState(
         latitude=-33.4655,
         longitude=-70.5975,
