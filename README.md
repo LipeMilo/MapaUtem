@@ -14,4 +14,3 @@ Cómo ejecutar el proyecto localmente
    )         (
   (           )
  ( (  )   (  ) )
-(__(__)___(__)__)
