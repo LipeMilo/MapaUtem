@@ -8,9 +8,7 @@ Cómo ejecutar el proyecto localmente
    - Agrega tus credenciales de Firebase
 4. Ejecuta la aplicación: `streamlit run app.py`
 
-    /\_____/\
-   /  o   o  \
-  ( ==  ^  == )
-   )         (
-  (           )
- ( (  )   (  ) )
+      \    /\
+       )  ( ')
+      (  /  )
+       \(__)|
