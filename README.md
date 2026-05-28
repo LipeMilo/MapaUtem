@@ -1,3 +1,7 @@
+      \    /\
+       )  ( ')
+      (  /  )
+       \(__)|
 Cómo ejecutar el proyecto localmente
 
 1. Clona este repositorio.
@@ -8,7 +12,4 @@ Cómo ejecutar el proyecto localmente
    - Agrega tus credenciales de Firebase
 4. Ejecuta la aplicación: `streamlit run app.py`
 
-      \    /\
-       )  ( ')
-      (  /  )
-       \(__)|
+
