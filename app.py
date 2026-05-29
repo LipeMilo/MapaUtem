@@ -51,7 +51,7 @@ def calcular_ruta(origen, destino, solo_accesible):
         G.add_edge(camino["origen"], camino["destino"], weight=camino["peso"])
 
     try:
-        ruta_nodos = nx.shortest_path(G, source=origen, target=destino, weight="weight")
+        ruta_nodos = nx.shortest_path(G, source=origen, target=destino, method='dijkstra')
 
         coordenadas_finales = []
         for nodo in ruta_nodos:
